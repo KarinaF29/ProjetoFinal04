@@ -55,10 +55,10 @@ df['ROA'] = (df['Lucro Líquido'] / df['Ativo Total']) * 100
 
 df_agrupado = df.groupby('Ano')[['Margem_Liquida', 'ROA']].mean().reset_index()
 
-
+fig, ax = plt.subplots()
 plt.figure(figsize=(10, 6))
-plt.plot(df_agrupado['Ano'], df_agrupado['Margem_Liquida'], marker="o", label='Margem Líquida')
-plt.plot(df_agrupado['Ano'], df_agrupado['ROA'], marker="o", label='ROA')
+plt.plot(df_agrupado['Ano'], df_agrupado['Margem_Liquida'], marker="o", label='Margem Líquida', ax=ax)
+plt.plot(df_agrupado['Ano'], df_agrupado['ROA'], marker="o", label='ROA', ax=ax)
 
 plt.title('Margem Líquida e ROA ao Longo dos Anos')
 plt.xlabel('Ano')
@@ -104,7 +104,7 @@ ipca_df
 df_combinado = pd.merge(df, ipca_df, on='Ano')
 df_combinado['Receita_Real'] = df_combinado['Receita Líquida'] - (df_combinado['Receita Líquida'] * (df_combinado['IPCA'] / 100))
 
-display(df_combinado.head())
+st.dataframe(display(df_combinado.head()))
 
 """6) Crie gráfico de linha que apresente as variáveis Receita Líquida e Receita Real ao longo dos anos (no mesmo gráfico) (peso: 1,0)"""
 
