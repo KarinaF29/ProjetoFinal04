@@ -56,7 +56,7 @@ df['ROA'] = (df['Lucro Líquido'] / df['Ativo Total']) * 100
 df_agrupado = df.groupby('Ano')[['Margem_Liquida', 'ROA']].mean().reset_index()
 
 fig, ax = plt.subplots()
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 6), ax=ax)
 plt.plot(df_agrupado['Ano'], df_agrupado['Margem_Liquida'], marker="o", label='Margem Líquida', ax=ax)
 plt.plot(df_agrupado['Ano'], df_agrupado['ROA'], marker="o", label='ROA', ax=ax)
 
