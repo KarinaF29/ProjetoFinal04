@@ -56,16 +56,16 @@ df['ROA'] = (df['Lucro Líquido'] / df['Ativo Total']) * 100
 df_agrupado = df.groupby('Ano')[['Margem_Liquida', 'ROA']].mean().reset_index()
 
 fig, ax = plt.subplots()
-plt.figure(figsize=(10, 6))
-plt.plot(df_agrupado['Ano'], df_agrupado['Margem_Liquida'], marker="o", label='Margem Líquida', ax=ax)
-plt.plot(df_agrupado['Ano'], df_agrupado['ROA'], marker="o", label='ROA', ax=ax)
+# plt.figure(figsize=(10, 6))
+df_agrupado.plot(x='Ano', y='Margem_Liquida', marker="o", label='Margem Líquida', ax=ax)
+df_agrupado.plot(x='Ano', y='ROA', marker="o", label='ROA', ax=ax)
 
-plt.title('Margem Líquida e ROA ao Longo dos Anos')
-plt.xlabel('Ano')
-plt.ylabel('Valor')
-plt.legend()
-plt.grid(True)
-plt.show()
+ax.set_title('Margem Líquida e ROA ao Longo dos Anos')
+ax.set_xlabel('Ano')
+ax.set_ylabel('Valor')
+ax.legend()
+ax.grid(True)
+st.pyplot(fig)
 
 
 
@@ -104,22 +104,24 @@ ipca_df
 df_combinado = pd.merge(df, ipca_df, on='Ano')
 df_combinado['Receita_Real'] = df_combinado['Receita Líquida'] - (df_combinado['Receita Líquida'] * (df_combinado['IPCA'] / 100))
 
-st.dataframe(display(df_combinado.head()))
+st.dataframe(df_combinado.head())
 
 """6) Crie gráfico de linha que apresente as variáveis Receita Líquida e Receita Real ao longo dos anos (no mesmo gráfico) (peso: 1,0)"""
 
 import matplotlib.pyplot as plt
 
-df_combinado.groupby('Receita Líquida')['Receita_Real'].sum()
+df_agrupado = df_combinado.groupby('Ano')[['Receita Líquida', 'Receita_Real']].sum().reset_index()
+st.dataframe(df_agrupado.head())
 
-
-
-
-df.plot(x='Ano', y=['Receita Líquida', 'Receita_Real'], kind='line')
-plt.title('Receita Líquida e Receita Real ao Longo dos Anos')
-plt.xlabel('Ano')
-plt.ylabel('Valor')
-plt.show()
+fig, ax = plt.subplots()
+df_agrupado.plot(x='Ano', y='Receita Líquida', label='Receita Líquida', ax=ax)
+df_agrupado.plot(x='Ano', y='Receita_Real', label='Receita Real', ax=ax)
+ax.set_title('Receita Líquida e Receita Real ao Longo dos Anos')
+ax.set_xlabel('Ano')
+ax.set_ylabel('Valor')
+ax.legend()
+ax.grid(True)
+st.pyplot(fig)
 
 """7) Faça os ajustes necessários e leve este projeto para a web usando GitHub e Streamlit (peso: 2,0)
 
