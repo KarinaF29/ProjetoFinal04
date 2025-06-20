@@ -57,8 +57,8 @@ df_agrupado = df.groupby('Ano')[['Margem_Liquida', 'ROA']].mean().reset_index()
 
 fig, ax = plt.subplots()
 #plt.figure(figsize=(10, 6))
-df.plot(x=df_agrupado['Ano'], y=df_agrupado['Margem_Liquida'], marker="o", label='Margem Líquida', ax=ax)
-df.plot(x=df_agrupado['Ano'], y=df_agrupado['ROA'], marker="o", label='ROA', ax=ax)
+df.plot(df_agrupado['Ano'], df_agrupado['Margem_Liquida'], marker="o", label='Margem Líquida')
+df.plot(df_agrupado['Ano'], df_agrupado['ROA'], marker="o", label='ROA')
 
 # ax.title('Margem Líquida e ROA ao Longo dos Anos')
 # ax.xlabel('Ano')
